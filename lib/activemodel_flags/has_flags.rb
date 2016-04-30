@@ -61,7 +61,7 @@ module ActivemodelFlags
                                     )")
         end
 
-        def self.reset_all_flags!(flag)
+        def self.reset_all_flags!
           self.update_all(flags: '{}')
         end
       end
@@ -147,7 +147,7 @@ module ActivemodelFlags
 
       protected
 
-      def on_flag_change(olf_val, new_val)
+      def on_flag_change(old_val, new_val)
         # Override this method if you want to react to flag changes
       end
 
