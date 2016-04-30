@@ -1,0 +1,2 @@
+describe ActivemodelFlags do
+end
