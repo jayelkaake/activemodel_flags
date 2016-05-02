@@ -101,7 +101,7 @@ end
 # Returns query list of all users that have been sent a message
 ```
 
-### Get all avaialble flags
+### Get all available flags
 If you want to now what flags are being used for **debugging purposes** then you can use
 ```ruby
 u = User.flags_used
