@@ -11,10 +11,10 @@ module ActivemodelFlags
       #
       def has_flags
         include LocalInstanceMethods
+        serialize :flags, JSON
 
         before_create :init_flags
         after_initialize :init_flags
-        serialize :flags, JSON
 
         scope :that_have?, -> (key) {
           where("flags LIKE '%\"#{key}\":true%'")
@@ -86,6 +86,8 @@ module ActivemodelFlags
       #### setters
 
       def has(flag)
+        ensure_serialized
+
         old_flags = self.flags
 
         self.flags[flag.to_s] = true
@@ -99,12 +101,19 @@ module ActivemodelFlags
         self.save!
       end
 
-      def hasnt!(flag)
+      def hasnt(flag)
+        ensure_serialized
+
         old_flags = self.flags
 
         self.flags[flag.to_s] = false
 
         on_flag_change(old_flags[flag.to_s], self.flags[flag.to_s]) unless old_flags == self.flags
+      end
+      alias_method :has_not, :hasnt
+
+      def hasnt!(flag)
+        hasnt(flag)
         self.save!
       end
       alias_method :has_not!, :hasnt!
@@ -155,6 +164,12 @@ module ActivemodelFlags
 
       def init_flags
         self.flags = {} unless self.flags.present?
+      end
+
+      def ensure_serialized
+        if self.flags.is_a?(String)
+          self.flags = JSON.load(self.flags)
+        end
       end
 
     end
