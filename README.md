@@ -5,7 +5,7 @@
 The Active Model Flags Gem lets you attach the `has_flags` trait to your User, Account, or any other rails active models.
 
 ## Why would you need a flags attribute and this gem?
-For some applications you don't want ot add a million different attributes in your database for flags that are potentially one-time events. For example, if you wanted to track whether a user has been notified of something, or has been sent an email. These arbitrary flag columns start to clutter your DB.
+For some applications you don't want to add a million different attributes in your database for flags that are potentially one-time events. For example, if you wanted to track whether a user has been notified of something, or has been sent an email. These arbitrary flag columns start to clutter your DB.
 
 The Active Model Flags gem solves this issue by allowing you to arbitrarily set and get flags from a serialized column.
 
