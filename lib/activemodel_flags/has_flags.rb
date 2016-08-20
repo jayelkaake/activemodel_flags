@@ -71,6 +71,7 @@ module ActivemodelFlags
 
       #### getters
       def has_flag?(flag)
+        return false if self.flags.blank?
         self.flags[flag.to_s] != nil
       end
       def has?(flag)
