@@ -17,24 +17,24 @@ module ActivemodelFlags
         after_initialize :init_flags
 
         scope :that_have?, -> (key) {
-          where("flags LIKE '%\"#{key}\":true%'")
+          where("#{table_name}.flags LIKE '%\"#{key}\":true%'")
         }
         scope :that_havent?, -> (key) {
-          where("flags NOT LIKE '%\"#{key}\":true%'")
+          where("#{table_name}.flags NOT LIKE '%\"#{key}\":true%'")
         }
         scope :that_have_not?, -> (key) { that_havent?(key) }
 
         scope :that_have_any_flags, -> {
-          where("flags != '{}' AND flags IS NOT NULL")
+          where("#{table_name}.flags != '{}' AND #{table_name}.flags IS NOT NULL")
         }
 
         scope :all_have!, -> (flag) {
           self.reset_flags!(flag)
-          self.update_all("flags = REPLACE(flags, '}', '\"#{flag}\":true}')")
+          self.update_all("flags = REPLACE(#{table_name}.flags, '}', '\"#{flag}\":true}')")
         }
         scope :all_have_not!, -> (flag) {
           self.reset_flags!(flag)
-          self.update_all("flags = REPLACE(flags, '}', '\"#{flag}\":false}')")
+          self.update_all("flags = REPLACE(#{table_name}.flags, '}', '\"#{flag}\":false}')")
         }
 
         def self.flags_used
