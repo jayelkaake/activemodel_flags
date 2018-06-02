@@ -128,33 +128,6 @@ module ActivemodelFlags
         self.save!
       end
 
-      # TODO implement the ability to
-      # def method_missing(method)
-      #   if method.to_s =~ /has_[a-zA-Z0-9_]+\?/
-      #     key = method.to_s.chomp("?").reverse.chomp("_sah").reverse
-      #     has = true
-      #   elsif method.to_s =~ /hasnt_[a-zA-Z0-9_]+\?/
-      #     key = method.to_s.chomp("?").reverse.chomp("_tnsah").reverse
-      #     has = false
-      #   elsif method.to_s =~ /has_not_[a-zA-Z0-9_]+\?/
-      #     key = method.to_s.chomp("?").reverse.chomp("_ton_sah").reverse
-      #     has = false
-      #   else
-      #     return super
-      #   end
-      #
-      #   if has_flag?(method.to_s)
-      #     has ? has?(key) : hasnt?(key)
-      #   else
-      #     puts "*************** NO METHOD!! "
-      #     super
-      #   end
-      # end
-
-      def respond_to?(method)
-        has_flag?(method.to_s) || super(method)
-      end
-
       protected
 
       def on_flag_change(old_val, new_val)
